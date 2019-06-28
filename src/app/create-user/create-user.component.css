@@ -1,0 +1,28 @@
+
+.user {
+    background-color: cornflowerblue;
+    height: 100vh;
+    overflow: hidden;
+}
+.card {
+    box-shadow: 0px 5px 25px rgb(189,189,189);
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 400px;
+    height: 300px;
+}
+.card-header h4 {
+    color: rgb(216, 142, 5);
+        
+
+}
+.btn {
+    background-color: rgb(216, 142, 5);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: bold;
+}
