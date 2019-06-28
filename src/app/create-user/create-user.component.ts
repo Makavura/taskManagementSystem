@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from '../_models/user';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-create-user',
@@ -9,12 +11,17 @@ import { User } from '../_models/user';
 export class CreateUserComponent implements OnInit {
   model = new User();
 
-  constructor() { }
+  constructor(public userService: UserService, private router: Router) { }
 
   ngOnInit() {
+    this.userService.logout();
   }
 
-  logUser(userf) {
-    console.log(userf);
+  logUser() {
+    this.userService.createUser(this.model).subscribe(data => {
+    }, error => {
+      console.log('An error occured: ', error)
+    })
+
  }
 }
