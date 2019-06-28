@@ -14,6 +14,7 @@ export class UserService {
     createUser(user: User) {
       return this.http.post<User>(appConfig.apiUrl + 'users', user).pipe(
         map(data => {
+          console.log(data)
           // login successful if there's  a jwt token in the response
           if (data) {
             localStorage.setItem('userId', JSON.stringify(data));
