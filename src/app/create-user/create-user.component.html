@@ -1,24 +1,18 @@
 <div class="user">
-<div class="row">
-<div class="card">
-    
-    
-  <div class="card-header text-center">
-   <h4> 
-Task Manager
-</h4>
-</div>
-<div class="card-body">
-<form>
-<div class="form-group">
-<input type="text" class="form-control" id="userName" aria-describedby="emailHelp" placeholder="Enter UserName">
-</div>
-<button type="submit" class="btn btn-block" >Start Task</button>
-<!-- <br> -->
-<!-- <br> -->
-<!-- <br>   -->
-</form>
-</div>
-</div>
-</div>
+  <div class="row">
+    <div class="card">
+      <div class="card-header text-center">
+        <h4> Task Manager</h4>
+      </div>
+      <form (ngSubmit)="userForm.form.valid && logUser(userForm)" #userForm="ngForm">
+        <div class="form-group mt-4">
+          <input class="form-control" [(ngModel)]="model.username" name="username" type="text" #username="ngModel" placeholder="Enter UserName" required />
+        </div>
+        <div *ngIf="username.invalid && userForm.submitted" class="card-error">
+          <div *ngIf="username.errors.required">User name is required</div>
+        </div>
+        <button type="submit" class="btn btn-block">Start Task</button>
+      </form>
+    </div>
+  </div>
 </div>
