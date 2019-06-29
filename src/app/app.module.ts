@@ -8,11 +8,15 @@ import { AppComponent } from './app.component';
 import { CreateUserComponent } from './create-user/create-user.component';
 import { UserService} from './_services/user.service';
 import { TaskService} from './_services/task.service';
+import { TasksComponent } from './tasks/tasks.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CreateUserComponent
+    CreateUserComponent,
+    TasksComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
