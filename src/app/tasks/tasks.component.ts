@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { TaskService} from '../_services/task.service';
 import { Task } from '../_models/task';
 
@@ -46,8 +47,42 @@ export class TasksComponent implements OnInit {
     });
   }
 
-  saveTask() {
+  drop(event: CdkDragDrop<Task[]>) {
+    const task = event.item.data;
+    console.log(task);
+    if (event.previousContainer === event.container) {
 
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+        );
+    } else {
+
+      if(event.container.id === 'cdk-drop-list-0') {
+        task.status = 0;
+        this.taskService.updateTask(task).subscribe(data => {
+          this.getTasks();
+        });
+      } else if (event.container.id === 'cdk-drop-list-1') {
+        task.status = 1;
+        this.taskService.updateTask(task).subscribe(data => {
+          this.getTasks();
+        });
+      } else {
+        task.status = 2;
+        this.taskService.updateTask(task).subscribe(data => {
+            this.getTasks();
+          });
+      }
+      transferArrayItem(event.previousContainer.data,
+                        event.container.data,
+                        event.previousIndex,
+                        event.currentIndex);
+    }
+  }
+
+  saveTask() {
     if ( this.model.id == null) {
       this.taskService.createTask(this.model).subscribe(() => {
         this.getTasks();
@@ -55,13 +90,16 @@ export class TasksComponent implements OnInit {
         this.btnClose.nativeElement.click();
       });
     } else {
+
       this.taskService.updateTask(this.model).subscribe(() => {
         this.getTasks();
         this.model = new Task();
         this.btnClose.nativeElement.click();
       });
+      }
+
     }
-    }
+
   editTask(task) {
     this.model = task;
   }
