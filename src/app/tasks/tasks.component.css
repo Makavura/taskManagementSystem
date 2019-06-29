@@ -1,0 +1,48 @@
+.container-fluid {
+    background-color: #ccc;
+    height: 100vh;
+    overflow: hidden;
+}
+.row {
+    margin-top: 68px;
+}
+.col {
+    padding: 5px;
+}
+.navbar-brand {
+    color: rgb(216, 142, 5);
+}
+.card-task {
+    min-height: 60px;
+}
+.card-body {
+    background-color: lightgrey;
+    padding-bottom: 10px;
+}
+.todo-header {
+    text-align: center;
+    color: aliceblue;
+    background-color: rgb(223, 226, 23);
+    padding: 10px;
+}
+.todo {
+    border-left: 5px solid rgb(223, 226, 23);
+}
+.prog-header {
+    text-align: center;
+    color: aliceblue; 
+    background-color: rgb(255, 135, 37);
+    padding: 10px;
+}
+.in-prog {
+    border-left: 5px solid rgb(225, 135, 37);
+}
+.completed-header {
+    text-align: center;
+    color: aliceblue;
+    background-color: #42A948;
+    padding: 10px;
+}
+.completed {
+    border-left: 5px solid #42A948;
+}

@@ -1,45 +1,93 @@
-    <nav class="navbar navbar-light bg-light">
-  <a class="navbar-brand">Task Manager</a>
-  <ul class="nav justify-content-center">
-  <li class="nav-item">
-<button type="button" class="btn btn-secondary" >Add Task</button>
-  </li>
-  </ul>
-<ul class="nav justify-content-end">
-  <li class="nav-item">
-<button type="button" class="btn btn-secondary" >Log Out</button>
-  </li>
-</ul>
-    </nav>
-    <br>
-    <br>
+<div class="container-fluid">
+<nav class="navbar navbar-light bg-light fixed-top">
+  <h4 class="navbar-brand">Task Manager</h4>
+      <button type="button" class="btn btn-secondary" data-toggle = "modal" data-target = "#taskModal">Add Task</button>
+      <button type="button" class="btn btn-secondary" [routerLink] = "['/user']">Log Out</button>
+</nav>
 
-    <div class="card-deck">
+<div class="row">
+  <div class = "col">
   <div class="card">
-          <div class="card-header text-center">
-        <h4> To Do</h4>
+    <div class="todo-header">
+      <h4> To Do</h4>
+    </div>
+    <div class ="card-task">
+    <div class="card-body todo m-1" *ngFor="let task of toDoTask">
+      <h6 class="mb-1">{{task.title}}</h6>
+      <p class="mb-1">{{task.description}}</p>
+      <small class="text-muted">{{task.startDate}}</small>
+      <div class = "task-footer">
+        <button type="button" class="btn btn-primary btn-sm" (click)="editTask(task)" data-toggle="modal" data-target="#taskModal">Edit</button>
+        <button type="button" class="btn btn-danger btn-sm float-right" (click)="deleteTask(task.id)" >Delete</button>
       </div>
-    <div class="card-body">
-      <p class="card-text"></p>
-      <p class="card-text"><small class="text-muted"></small></p>
+    </div>
     </div>
   </div>
+  </div>
+
+  <div class = "col">
   <div class="card">
-              <div class="card-header text-center">
-        <h4> Ongoing</h4>
-      </div>
-    <div class="card-body">
-      <p class="card-text"></p>
-      <p class="card-text"><small class="text-muted"></small></p>
+    <div class="prog-header">
+      <h4> Ongoing</h4>
+    </div>
+    <div class="card-task">
+    <div class="card-body in-prog m-1" *ngFor="let task of inProgressTask">
+        <h6 class="mb-1">{{task.title}}</h6>
+        <p class="mb-1">{{task.description}}</p>
+        <small class="text-muted">Start: {{task.startDate | date: 'short'}}</small>
+    </div>
     </div>
   </div>
+  </div>
+
+  <div class = "col">
   <div class="card">
-              <div class="card-header text-center">
-        <h4> Completed</h4>
-      </div>
-    <div class="card-body">
-      <p class="card-text"></p>
-      <p class="card-text"><small class="text-muted"></small></p>
+    <div class="completed-header">
+      <h4> Completed</h4>
+    </div>
+    <div class="card-task">
+    <div class="card-body completed m-1" *ngFor="let task of completedTask">
+        <h6 class="mb-1">{{task.title}}</h6>
+        <p class="mb-1">{{task.description}}</p>
+        <small class="text-muted">Start: {{task.startDate | date: 'short'}}</small>
+        <small class="text-muted">End: {{task.endDate | date: 'short'}}</small>
+    </div>
     </div>
   </div>
 </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="taskModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="taskModalLabel">Add Task</h5>
+          <button type="button" class="close" data-dismiss="modal" #btnClose aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form (ngSubmit)="taskForm.form.valid && saveTask()" #taskForm="ngForm">
+              <div class="form-group">
+                <label for="title">Title</label>
+                  <input class="form-control" [(ngModel)]="model.title" name="title" type="text" #title="ngModel" id="title" required />
+                </div>
+                <div *ngIf="title.invalid && taskForm.submitted" class="alert alert-danger">
+                  <div *ngIf="title.errors.required">Title is required</div>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                      <input class="form-control" [(ngModel)]="model.description" name="description" type="text" #description="ngModel" id="description" required />
+                    </div>
+                    <div *ngIf="description.invalid && taskForm.submitted" class="alert alert-danger">
+                      <div *ngIf="description.errors.required">Description is required</div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Save Task</button>
+                    </div>
+                </form>
+        </div>
+      </div>
+    </div>
+  </div>

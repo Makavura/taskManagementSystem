@@ -14,15 +14,15 @@ export class CreateUserComponent implements OnInit {
   constructor(public userService: UserService, private router: Router) { }
 
   ngOnInit() {
-    // this.userService.logout();
+    this.userService.logout();
   }
 
   logUser() {
     this.userService.createUser(this.model).subscribe(data => {
-      alert('user created');
+     this.router.navigate(['/tasks']);
     }, error => {
-      console.log('An error occured: ', error)
-    })
+      console.log('An error occured: ', error);
+    });
 
  }
 }

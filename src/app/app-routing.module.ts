@@ -10,7 +10,7 @@ const routes: Routes = [
   {path: 'user', component: CreateUserComponent},
   {path: 'tasks', component: TasksComponent},
   {path: '**', component: PageNotFoundComponent},
-  {path: '/', redirectTo: '/user', pathMatch: 'full'}
+  {path: '', redirectTo: 'user', pathMatch: 'full'}
 ];
 
 @NgModule({
