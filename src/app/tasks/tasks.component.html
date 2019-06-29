@@ -11,8 +11,9 @@
     <div class="todo-header">
       <h4> To Do</h4>
     </div>
-    <div class ="card-task">
-    <div class="card-body todo m-1" *ngFor="let task of toDoTask">
+    <div class ="card-task" cdkDropList #todoList="cdkDropList" [cdkDropListData]="toDoTask" [cdkDropListConnectedTo]="[progressList]" 
+    (cdkDroplistDropped)="drop($event)">
+    <div class="card-body todo m-1" *ngFor="let task of toDoTask" [cdkDragData]="task" cdkDrag>
       <h6 class="mb-1">{{task.title}}</h6>
       <p class="mb-1">{{task.description}}</p>
       <small class="text-muted">{{task.startDate}}</small>
@@ -30,8 +31,9 @@
     <div class="prog-header">
       <h4> Ongoing</h4>
     </div>
-    <div class="card-task">
-    <div class="card-body in-prog m-1" *ngFor="let task of inProgressTask">
+    <div class="card-task" cdkDropList #progressList="cdkDropList" [cdkDropListData]="cdkDropList" [cdkDropListConnectedTo]="[inProgressTask]" 
+    (cdkDroplistDropped)="drop($event)">
+    <div class="card-body in-prog m-1" *ngFor="let task of inProgressTask" [cdkDragData]="task" cdkDrag>
         <h6 class="mb-1">{{task.title}}</h6>
         <p class="mb-1">{{task.description}}</p>
         <small class="text-muted">Start: {{task.startDate | date: 'short'}}</small>
@@ -45,8 +47,9 @@
     <div class="completed-header">
       <h4> Completed</h4>
     </div>
-    <div class="card-task">
-    <div class="card-body completed m-1" *ngFor="let task of completedTask">
+    <div class="card-task" cdkDropList #doneList="cdkDropList" [cdkDropListData]="completedTask" [cdkDropListConnectedTo]="[]" 
+    (cdkDroplistDropped)="drop($event)">
+    <div class="card-body completed m-1" *ngFor="let task of completedTask" [cdkDragData]="task" cdkDrag>
         <h6 class="mb-1">{{task.title}}</h6>
         <p class="mb-1">{{task.description}}</p>
         <small class="text-muted">Start: {{task.startDate | date: 'short'}}</small>
